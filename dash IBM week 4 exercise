@@ -18,8 +18,8 @@ app = dash.Dash(__name__)
 # Create an outer division using html.Div and add title to the dashboard using html.H1 component
 # Add a html.Div and core input text component
 # Finally, add graph component.
-app.layout = html.Div(children=[html.H1('Airline Performance Dashboard', style={'textAlign' : 'center', 'color':'#503D36', 'font-size':40 }),
-                                html.Div(["Input Year", dcc.Input(id="input-year", value=2010, type="number", style={'height':'50px','font-size':35}),], 
+app.layout = html.Div(children=[html.H1(children='Airline Performance Dashboard', style={'textAlign' : 'center', 'color':'#503D36', 'font-size':40 }),
+                                html.Div([children="Input Year", dcc.Input(id="input-year", value=2010, type="number", style={'marginRight':'50px','font-size':35}),], 
                                 style={'font-size':40}),
                                 html.Br(),
                                 html.Br(),
@@ -28,8 +28,8 @@ app.layout = html.Div(children=[html.H1('Airline Performance Dashboard', style={
 
 
 # add callback decorator
-@app.callback(Output(component_id= "input-year", component_property='figure'),
-               Input(component_id= "line-plot", component_property='value'))
+@app.callback(Output(component_id= "line-plot", component_property='figure'),
+               Input(component_id= "input-year", component_property='value'))
 
 # Add computation to callback function and return graph
 def get_graph(entered_year):
@@ -41,7 +41,7 @@ def get_graph(entered_year):
 
     # 
     fig = go.Figure(data=go.Scatter(x=line_data['Month'], y=line_data['ArrDelay'], mode='lines', marker=dict(color='green')))
-    fig.update_layout(title='ananinami',xaxis_title='month',yaxis_title='arrdelay')
+    fig.update_layout(title='Month vs Average Flight Delay Time',xaxis_title='month',yaxis_title='Arrdelay')
     return fig
 
 # Run the app
